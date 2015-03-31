@@ -1,5 +1,7 @@
 *.js
+!harmony-only.js
 !/js/*.js
+!/jsx/*.js
 !/test/*.js
 node_modules
 index.html
