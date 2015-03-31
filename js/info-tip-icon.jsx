@@ -88,16 +88,14 @@ var InfoTip = React.createClass({
     },
     getDefaultProps: function() {
         return {
-            height: 10,
-            width: 10,
+            fontSize: 14,
             additionalClass: '',
         };
     },
     render: function() {
         var icon = this.props.icon ? this.props.icon : 'fa fa-info-circle';
         var style = {
-            width: this.props.width,
-            height: this.props.height,
+            "font-size": this.props.fontSize
         };
         if (this.props.color) {
             style.color = this.props.color;
