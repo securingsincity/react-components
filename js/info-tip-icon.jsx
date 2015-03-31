@@ -96,7 +96,7 @@ var InfoTip = React.createClass({
     render: function() {
         var icon = this.props.icon ? this.props.icon : 'fa fa-info-circle';
         return <div className={infoTip.className}>
-            <i className={iconClass + " " + this.props.additionalClass}
+            <i className={icon + " " + this.props.additionalClass}
                  onMouseEnter={this.handleMouseEnter}
                  onMouseLeave={this.handleMouseLeave} />
             <div className={infoTipContainer.className}
