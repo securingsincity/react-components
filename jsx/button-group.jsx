@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var React = require('react');
 var RCSS = require('rcss');
 var _ = require('underscore');
@@ -9,8 +11,7 @@ var selectedStyle = styles.button.selectedStyle;
 RCSS.createClass(buttonStyle);
 RCSS.createClass(selectedStyle);
 
-/* MultiButtonGroup is an aesthetically pleasing group of buttons,
- * which allows multiple buttons to be selected at the same time.
+/* ButtonGroup is an aesthetically pleasing group of buttons.
  *
  * The class requires these properties:
  *   buttons - an array of objects with keys:
@@ -18,18 +19,20 @@ RCSS.createClass(selectedStyle);
  *     "content": this is the JSX shown within the button, typically a string
  *         that gets rendered as the button's display text
  *     "title": this is the title-text shown on hover
- *   onChange - a function that is provided with an array of the updated
- *     values (which it then is responsible for updating)
+ *   onChange - a function that is provided with the updated value
+ *     (which it then is responsible for updating)
  *
  * The class has these optional properties:
- *   values - an array of the initial values of the buttons selected.
+ *   value - the initial value of the button selected, defaults to null.
+ *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+ *     it defaults to true and _at most_ one button (0 or 1) may be selected.
  *
  * Requires stylesheets/perseus-admin-package/editor.less to look nice.
  */
 
-var MultiButtonGroup = React.createClass({
+var ButtonGroup = React.createClass({
     propTypes: {
-        values: React.PropTypes.arrayOf(React.PropTypes.any),
+        value: React.PropTypes.any,
         buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
             value: React.PropTypes.any.isRequired,
             content: React.PropTypes.node,
@@ -41,29 +44,30 @@ var MultiButtonGroup = React.createClass({
 
     getDefaultProps: function() {
         return {
-            values: [],
+            value: null,
             allowEmpty: true
         };
     },
 
     render: function() {
-        var values = this.props.values;
+        var value = this.props.value;
         var buttons = _(this.props.buttons).map(function(button, i)  {
-            var maybeSelected = _.contains(values, button.value) ?
-                selectedStyle.className : "";
-            return <button title={button.title}
-                    type="button"
-                    id={"" + i}
-                    key = {"" + i}
-                    ref={"button" + i}
-                    className={(buttonStyle.className + " " + maybeSelected)}
-                    onClick={this.toggleSelect.bind(this, button.value)}>
-                {button.content || "" + button.value}
-            </button>;
-        }.bind(this));
+                var maybeSelected = button.value === value ?
+                        selectedStyle.className :
+                        "";
+                return <button title={button.title}
+                        type="button"
+                        id={"" + i}
+                        ref={"button" + i}
+                        key={"" + i}
+                        className={(buttonStyle.className + " " + maybeSelected)}
+                        onClick={this.toggleSelect.bind(this, button.value)}>
+                    {button.content || "" + button.value}
+                </button>;
+            }.bind(this));
 
         var outerStyle = {
-            display: 'inline-block'
+            display: 'inline-block',
         };
         return <div style={outerStyle}>
             {buttons}
@@ -76,18 +80,15 @@ var MultiButtonGroup = React.createClass({
     },
 
     toggleSelect: function(newValue) {
-        var values = this.props.values;
-        var allowEmpty = this.props.allowEmpty;
+        var value = this.props.value;
 
-        if (_.contains(values, newValue) &&
-                (values.length > 1 || allowEmpty)) {
-            // If the value is already selected, unselect it
-            this.props.onChange(_.without(values, newValue));
+        if (this.props.allowEmpty) {
+            // Select the new button or unselect if it's already selected
+            this.props.onChange(value !== newValue ? newValue : null);
         } else {
-            // Otherwise merge with other values and return
-            this.props.onChange(_.union(values, [newValue]));
+            this.props.onChange(newValue);
         }
     }
 });
 
-module.exports = MultiButtonGroup;
+module.exports = ButtonGroup;

@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var RCSS = require('rcss');
 var React = require("react");
 var $ = require("jquery");

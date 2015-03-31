@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var _ = require('underscore');
 /* WARNING - DEPRECATED
  *

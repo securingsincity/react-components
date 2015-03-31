@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 /* The equivalent to jQuery.timeago for react.
  *
  * TimeAgo returns a span containing the amount of time (in English) that has

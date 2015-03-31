@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 /**
  * A React mixin factory which syncs state with a flux-style datastore. In
  * order to be compatible with this mixin, the datastore must support the

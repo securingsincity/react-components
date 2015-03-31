@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 /* This mixin provides a simple setInterval method.
  *
  * Example:

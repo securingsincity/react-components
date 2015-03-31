@@ -6,22 +6,15 @@ var jstransform = require('jstransform');
 
 var visitorList = visitors.getVisitorsBySet(['harmony']);
 
-var getJsName = function(filename) {
-    var dot = filename.lastIndexOf(".");
-    var baseName = filename.substring(0, dot);
-    return baseName + ".js";
-}
-
-// perform es6 / jsx tranforms on all files and simultaneously copy them to the
-// top level.
+// perform es6 anforms on all files and simultaneously copy them to the jsx folder
 var files = fs.readdirSync('js');
 for (var i = 0; i < files.length; i++) {
     var src = 'js/' + files[i];
-    var dest = 'jsx/'+ getJsName(files[i]);
+    var dest = 'jsx/'+ files[i];
 
     var js = fs.readFileSync(src, {encoding: 'utf8'});
     var transformed = jstransform.transform(visitorList, js).code;
     // transformed = transformed.replace('.jsx', '.js');
-
+    transformed = '/** @jsx React.DOM */\n\n' + transformed;
     fs.writeFileSync(dest, transformed);
 }

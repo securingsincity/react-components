@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 /**
  * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
  */

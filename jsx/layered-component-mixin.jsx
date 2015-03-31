@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 // From http://jsfiddle.net/LBAr8/
 
 /* Create a new "layer" on the page, like a modal or overlay.

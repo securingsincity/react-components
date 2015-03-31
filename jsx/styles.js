@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var button = {
     buttonStyle: {
         backgroundColor: 'white',

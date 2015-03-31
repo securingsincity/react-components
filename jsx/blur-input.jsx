@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var React = require("react");
 
 /* You know when you want to propagate input to a parent...

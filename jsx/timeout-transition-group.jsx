@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 /**
  * The CSSTransitionGroup component uses the 'transitionend' event, which
  * browsers will not send for any number of reasons, including the

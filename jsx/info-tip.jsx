@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var React = require('react');
 var RCSS = require('rcss');
 var _ = require('underscore');
